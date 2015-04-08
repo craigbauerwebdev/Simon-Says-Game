@@ -1,0 +1,35 @@
+body {
+		font-family: Arial;
+	}
+	/* Layout */
+	.wrap {
+		width: 400px;
+		height: 400px;
+		float: left;
+		margin-right: 30px;
+	}
+	.square {
+		width: 50%;
+		height: 50%;
+		float: left;
+	}
+	/* Buttons */
+	.dim {
+		opacity: .6;
+	}
+	.lit {
+		opacity: 1;
+	}
+
+	.yellow {
+	 	background: yellow;
+	}
+	.green {
+	 	background: green;
+	}
+	.blue {
+	 	background: blue;
+	}
+	.red {
+	 	background: red;
+	}

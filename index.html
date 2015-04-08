@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="simonSaysApp">
+<head>
+	<title>Update Name</title>
+
+	<link rel="stylesheet" type="text/css" href="css/simonSays.css" />
+
+	<!--<script src="https://code.angularjs.org/1.3.9/angular.min.js"></script>-->
+	 <script src="js/angular.min.1.3.9.js"></script>
+
+</head>
+<body>
+
+<div ng-controller="control as ctrl">
+
+	<h1>Simon Says</h1>
+	<div class="wrap">
+		
+		<div class="square yellow dim" ng-class="{'lit' : ctrl.yellow }" ng-click="ctrl.clickSquare(ctrl.colors.yellow)"></div>
+		<div class="square green dim" ng-class="{'lit' : ctrl.green }" ng-click="ctrl.clickSquare(ctrl.colors.green)"></div>
+		<div class="square blue dim" ng-class="{'lit' : ctrl.blue }" ng-click="ctrl.clickSquare(ctrl.colors.blue)"></div>
+		<div class="square red dim" ng-class="{'lit' : ctrl.red }" ng-click="ctrl.clickSquare(ctrl.colors.red)"></div>
+
+	</div>
+
+	<div class="simonsTurn">
+		
+		<h1>Simon's Turn</h1>
+		<p>List moves</p>
+
+	</div>
+
+	<div class="yourTurn">
+		
+		<h1>Your Turn</h1>
+		<p>Compare Moves</p>
+
+	</div>
+
+
+</div><!-- close ctrl -->
+
+	<script src="js/simonSays.js"></script>
+</body>
+</html>
