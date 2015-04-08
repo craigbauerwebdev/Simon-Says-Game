@@ -1,7 +1,7 @@
 angular.module('simonSaysApp', [])
 
 
-		.factory('fact', function(){
+	.factory('fact', function(){
 
 			//Logic
 			self.btn = {
@@ -12,15 +12,15 @@ angular.module('simonSaysApp', [])
 		})
 
 
-		.service('calc', function(){
+	.service('calc', function(){
 
 		})
 
-		.value('val', function(){
+	.value('val', function(){
 
 		})
 
-		.controller('control', function($timeout, $interval, fact){
+	.controller('control', function($timeout, $interval, fact){
 
 		var self = this;
 		var speed = 100;
@@ -30,8 +30,6 @@ angular.module('simonSaysApp', [])
 		self.yourMoves = [];
 
 
-// Combine into 1 function
-
 		self.colors = {
 			yellow: '_yellow_',
 			green: '_green_',
@@ -39,9 +37,20 @@ angular.module('simonSaysApp', [])
 			red: '_red_'
 		}
 
+		self.simonsTurn = function(){
+			self.random = self.colorOptions[Math.floor(Math.random() * self.colorOptions.length)];
+			
+			console.log('Simon selected: ' + self.random);
+
+			self.simonMoves.push({move: self.random});
+
+			console.log(self.simonMoves);
+		}
+		//self.simonsTurn();
+
 		/*$interval(function(){
-			self.selectSquare(self.colors.blue);
-		}, 2000)*/
+			self.selectSquare('_blue_');
+		}, 2000);*/
 
 		//animation for color selection
 		self.selectSquare = function(color) {
@@ -84,6 +93,7 @@ angular.module('simonSaysApp', [])
 			} else {
 				console.log('No Color Logged');
 			}
+			
 			//console.log('Ran Function');
 		}
 		
