@@ -1,14 +1,17 @@
 angular.module('simonSaysApp', [])
 
 
-	.factory('fact', function(){
+	.factory('simonsTurn', function(){
 
-			//Logic
-			self.btn = {
-				color: 'red'
-			}
+		function simonsTurn() {
 
-			return btn.color;//something;
+		}
+
+		simonsTurn.prototype.hisTurn = function(service) {
+			// body...
+		};
+			
+			return simonsTurn;
 		})
 
 
@@ -20,7 +23,7 @@ angular.module('simonSaysApp', [])
 
 		})
 
-	.controller('control', function($timeout, $interval, $log, fact){
+	.controller('control', function($timeout, $interval, $log, simonsTurn){
 
 		var self = this;
 		var speed = 100;
@@ -30,11 +33,16 @@ angular.module('simonSaysApp', [])
 		self.yourMoves = [];
 
 
+		//for clicks
 		self.colors = {
 			yellow: '_yellow_',
 			green: '_green_',
 			blue: '_blue_',
 			red: '_red_'
+		}
+		self.yourTurn = function(colo) {
+			$log.info('Ran Your Turn Function');
+			self.selectSquare(colo);
 		}
 
 		self.simonsTurn = function(){
@@ -74,58 +82,51 @@ angular.module('simonSaysApp', [])
 				} else {
 					$log.log('Simon Fucked Up!')
 				}
-				if (x === self.len) {
+
+				//log
+				console.log('x: ' + x);
+				console.log('Len: ' + self.len)
+
+				if (x === self.len - 1) {
+
+					// Human Turn
 					console.log('Your Turn');
+
+					self.yourTurn();
+
+					
 				}
 				x++;
 			}, 1000, self.len);
 
-			console.log('Your Turn');
+			//console.log('Your Turn');
 		}
 
 		//animation for color selection
 		self.selectSquare = function(color) {
 			if (color === self.colors.yellow) {
+
 				self.yellow = true;
-
-				$timeout(function(){
-					self.yellow = false;
-				}, speed);
-
-				//console.log('yellow');
 
 			} else if (color === self.colors.green) {
 
-				self.green = true;
-
-				$timeout(function(){
-					self.green = false;
-				}, speed);
-
-				//console.log('green');
+				self.green = true;	
 
 			} else if (color === self.colors.blue) {
+
 				self.blue = true;
 
-				$timeout(function(){
-					self.blue = false;
-				}, speed);
-
-				//console.log('blue');
-
 			} else if (color === self.colors.red) {
-				self.red = true;
 
-				$timeout(function(){
+				self.red = true;	
+
+			} 
+			$timeout(function(){
+					self.yellow = false;
 					self.red = false;
+					self.blue = false;
+					self.green = false;
 				}, speed);
-
-				//console.log('red');
-			} else {
-				console.log('No Color Logged');
-			}
-			
-			//console.log('Ran Function');
 		}
 		
 	}); //close ctrl
