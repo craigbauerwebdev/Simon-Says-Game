@@ -27,6 +27,7 @@ angular.module('simonSaysApp', [])
 
 		var self = this;
 		var speed = 100;
+		self.isDisabled = true;
 
 		self.colorOptions = ['yellow', 'green', 'blue', 'red'];
 		self.simonMoves = [];
@@ -40,9 +41,24 @@ angular.module('simonSaysApp', [])
 			blue: '_blue_',
 			red: '_red_'
 		}
-		self.yourTurn = function(colo) {
+
+		self.i = 0;
+
+		self.yourTurn = function(colorSelect) {
 			$log.info('Ran Your Turn Function');
-			self.selectSquare(colo);
+			//run animation function on usr click
+			self.selectSquare(colorSelect);
+
+			//push selection to yourMoves
+
+			//compare index of arrays
+
+			//end if array is over
+
+			$timeout(function(){
+				self.isDisabled = false;
+			}, 5000)
+			
 		}
 
 		self.simonsTurn = function(){
@@ -59,6 +75,7 @@ angular.module('simonSaysApp', [])
 
 			
 			var x = 0;
+
 			$interval(function(){
 
 				console.log(self.simonMoves[x]);
@@ -92,7 +109,9 @@ angular.module('simonSaysApp', [])
 					// Human Turn
 					console.log('Your Turn');
 
-					self.yourTurn();
+					self.isDisabled = false;
+
+					//self.yourTurn();
 
 					
 				}
