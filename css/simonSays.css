@@ -7,6 +7,7 @@ body {
 		height: 400px;
 		float: left;
 		margin-right: 30px;
+		background: url(../img/console.png);
 	}
 	.square {
 		width: 50%;
@@ -22,14 +23,14 @@ body {
 	}
 
 	.yellow {
-	 	background: yellow;
+	 	background: url(../img/yellow.png);
 	}
 	.green {
-	 	background: green;
+	 	background: url(../img/green.png);
 	}
 	.blue {
-	 	background: blue;
+	 	background: url(../img/blue.png);
 	}
 	.red {
-	 	background: red;
+	 	background: url(../img/red.png);
 	}

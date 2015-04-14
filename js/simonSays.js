@@ -31,12 +31,15 @@ angular.module('simonSaysApp', [])
 
 // move values into this object slowly
 		self.gameOptions = {
-			colorOptions: [
-				{ color: 'yellow' }, 
-				{ color: 'green' }, 
-				{ color: 'blue' }, 
-				{ color: 'red' }
-			],
+			colorOptions: {
+				yellow: 'yellow', 
+				green: 'green', 
+				blue: 'blue', 
+				red: 'red',
+				random: ['yellow', 'green', 'blue', 'red']
+				},
+			simonsTurn: false,
+			yourTurn: false,
 			simonMoves: [],
 			yourMoves: [],
 			displaySimon: [],
@@ -46,23 +49,6 @@ angular.module('simonSaysApp', [])
 // end object
 
 		self.colorOptions = ['yellow', 'green', 'blue', 'red'];
-		self.simonMoves = [];
-		self.yourMoves = [];
-
-		self.displaySimon = [];
-		self.displayHuman = [];
-
-
-		//for clicks
-		self.colors = {
-			yellow: 'yellow',
-			green: 'green',
-			blue: 'blue',
-			red: 'red'
-		}
-
-
-
 
 		var i = 0;
 
@@ -72,17 +58,17 @@ angular.module('simonSaysApp', [])
 			self.clickedColor = colorSelect;
 			self.selectSquare(self.clickedColor);
 
-			self.yourMoves.push({move: self.clickedColor});
+			self.gameOptions.yourMoves.push({move: self.clickedColor});
 
-			if ( self.yourMoves[i].move === self.simonMoves[i].move ) {
+			if ( self.gameOptions.yourMoves[i].move === self.gameOptions.simonMoves[i].move ) {
 
 				//$log.log('selection matched');
 				i++;
 
-				if ( self.yourMoves.length === self.simonMoves.length) {
+				if ( self.gameOptions.yourMoves.length === self.gameOptions.simonMoves.length) {
 					
 					//$log.log('New Round');	
-					self.yourMoves = [];
+					self.gameOptions.yourMoves = [];
 					self.simonsTurn();
 					i = 0;
 				}	
@@ -90,10 +76,13 @@ angular.module('simonSaysApp', [])
 			} else {
 
 				i = 0;
-				self.yourMoves = [];
-				self.simonMoves = [];
+				self.gameOptions.yourMoves = [];
+				self.gameOptions.simonMoves = [];
+				self.gameOptions.yourTurn = false;
+				self.gameOptions.simonsTurn = false;
 				self.isDisabled = true;
 				self.startBtn = false; //shows play again btn
+
 				console.log('Play Again?');
 			}
 
@@ -102,6 +91,10 @@ angular.module('simonSaysApp', [])
 
 		self.simonsTurn = function(){
 
+			self.gameOptions.yourTurn = false;
+			self.gameOptions.simonsTurn = true;
+
+
 			self.isDisabled = true; //shows button
 			self.startBtn = true; //hides btn
 
@@ -109,40 +102,45 @@ angular.module('simonSaysApp', [])
 
 			$log.info('Simon selected: ' + self.random);
 			
-			self.simonMoves.push({move: self.random});
+			self.gameOptions.simonMoves.push({move: self.random});
 
-			self.len = self.simonMoves.length;
+			self.len = self.gameOptions.simonMoves.length;
 
-			var x = 0; // Resets Every time simaon takes a turn
+			var x = 0; // Resets Every time simon takes a turn
 
 			$interval(function(){
 
 				// Runs through simons choices
-				if (self.simonMoves[x].move == 'yellow') {
+				if (self.gameOptions.simonMoves[x].move == 'yellow') {
 
-					self.selectSquare(self.colors.yellow);
+					self.selectSquare(self.gameOptions.colorOptions.yellow);
 
-				} else if (self.simonMoves[x].move == 'green') {
+				} else if (self.gameOptions.simonMoves[x].move == 'green') {
 
-					self.selectSquare(self.colors.green);
+					self.selectSquare(self.gameOptions.colorOptions.green);
 
-				} else if (self.simonMoves[x].move == 'blue') {
+				} else if (self.gameOptions.simonMoves[x].move == 'blue') {
 
-					self.selectSquare(self.colors.blue);
+					self.selectSquare(self.gameOptions.colorOptions.blue);
 
-				} else if (self.simonMoves[x].move == 'red') {
+				} else if (self.gameOptions.simonMoves[x].move == 'red') {
 
-					self.selectSquare(self.colors.red);
+					self.selectSquare(self.gameOptions.colorOptions.red);
 
 				} else {
-					$log.log('Simon Fucked Up!')
+					$log.log('Oops... Simon Fucked Up!')
 				}
 
 				if (x === self.len - 1) {
 
 					$timeout(function(){
 					  self.isDisabled = false;
-				    },1);
+				    }, 10);
+
+					$timeout(function(){
+				    	self.gameOptions.simonsTurn = false;
+						self.gameOptions.yourTurn = true;
+					}, 1000);
 					
 				}
 				x++;
@@ -156,19 +154,19 @@ angular.module('simonSaysApp', [])
 
 		//animation for color selection
 		self.selectSquare = function(color) {
-			if (color === self.colors.yellow) {
+			if (color === 'yellow') {
 
 				self.yellow = true;
 
-			} else if (color === self.colors.green) {
+			} else if (color === 'green') {
 
 				self.green = true;	
 
-			} else if (color === self.colors.blue) {
+			} else if (color === 'blue') {
 
 				self.blue = true;
 
-			} else if (color === self.colors.red) {
+			} else if (color === 'red') {
 
 				self.red = true;	
 

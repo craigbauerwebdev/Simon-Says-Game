@@ -17,13 +17,13 @@
 	<div class="wrap" style="position: relative;">
 
 		<!-- Clickable Version -->
-		<div class="square yellow dim" ng-class="{'lit' : ctrl.yellow }" ng-click="ctrl.yourTurn(ctrl.colors.yellow)"></div>
+		<div class="square yellow dim" ng-class="{'lit' : ctrl.yellow }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.yellow)"></div>
 
-		<div class="square green dim" ng-class="{'lit' : ctrl.green }" ng-click="ctrl.yourTurn(ctrl.colors.green)"></div>
+		<div class="square green dim" ng-class="{'lit' : ctrl.green }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.green)"></div>
 
-		<div class="square blue dim" ng-class="{'lit' : ctrl.blue }" ng-click="ctrl.yourTurn(ctrl.colors.blue)"></div>
+		<div class="square blue dim" ng-class="{'lit' : ctrl.blue }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.blue)"></div>
 
-		<div class="square red dim" ng-class="{'lit' : ctrl.red }" ng-click="ctrl.yourTurn(ctrl.colors.red)"></div>
+		<div class="square red dim" ng-class="{'lit' : ctrl.red }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.red)"></div>
 
 		<div style="height: 100%; width:100%; position: absolute; top:0; left: 0;" ng-show="ctrl.isDisabled">Simons Turn</div>
 
@@ -31,26 +31,26 @@
 
 	</div>
 
-	<div class="simonsTurn">
+	<button ng-hide="ctrl.startBtn" ng-click="ctrl.simonsTurn()">Start Game</button>
+
+	<div ng-show="ctrl.gameOptions.simonsTurn" class="simonsTurn">
 		
 		<h1>Simon's Turn</h1>
 
 		<p>List moves here</p>
 
-		<button ng-hide="ctrl.startBtn" ng-click="ctrl.simonsTurn()">Start Game</button>
-
 	</div>
 
-	<div class="yourTurn">
+	<div ng-show="ctrl.gameOptions.yourTurn" class="yourTurn">
 		
 		<h1>Your Turn</h1>
 		<p>Compare Moves</p>
 
 	</div>
 
-<h1>Choices</h1>
-<div ng-repeat="Smove in ctrl.simonMoves.move">
-<p>{{ ctrl.Smove }}</p>
+<!-- <h1>Choices</h1>
+<div ng-repeat="sM in ctrl.simonMoves.move">
+<p>{{ ctrl.sM }}</p> -->
 
 </div>
 
