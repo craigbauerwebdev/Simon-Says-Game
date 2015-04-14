@@ -17,11 +17,11 @@ angular.module('simonSaysApp', [])
 
 	.service('calc', function(){
 
-		})
+	})
 
 	.value('val', function(){
 
-		})
+	})
 
 	.controller('control', function($timeout, $interval, $log, simonsTurn){
 
@@ -36,38 +36,43 @@ angular.module('simonSaysApp', [])
 
 		//for clicks
 		self.colors = {
-			yellow: '_yellow_',
-			green: '_green_',
-			blue: '_blue_',
-			red: '_red_'
+			yellow: 'yellow',
+			green: 'green',
+			blue: 'blue',
+			red: 'red'
 		}
 
-		self.simonsTurn();
+		//self.simonsTurn();
 
-		self.i = 0;
+		var i = 0;
 
 		self.yourTurn = function(colorSelect) {
-			$log.info('Ran Your Turn Function');
+
 			//run animation function on usr click
 			self.selectSquare(colorSelect);
 
 			//push selection to yourMoves
-			self.yourMoves.push({move: colorSelect});
+			self.yourMoves.push({move: self.colorSelect});
 
-			if (self.simonMoves[i].move === self.yourMoves[i].move) {
+
+			if ( colorSelect === self.simonMoves[i].move ) {
 
 				i++;
+				console.log('Turn: ' + i);
+
+				$log.info('Length of Simon Array: ' + self.simonMoves.length);
+				$log.info('Length of Human Array: ' + self.yourMoves.length);
+				$log.info('i: ' + i);
+
+				self.yourMoves = [];
+
+				self.simonsTurn(); //move this
 
 			} else {
 
-				return;
-				//end = self.simonMoves[i].length;
+				//return;
+				console.log('Not Equal???');
 			}
-
-			if (i = self.simonMoves[i].length+1){
-				self.simonsTurn();
-			}
-
 
 
 			$log.info(self.yourMoves);
