@@ -15,7 +15,7 @@ angular.module('simonSaysApp', [])
 		})
 
 
-	.service('calc', function(){
+	.service('allOptions', function(){
 
 	})
 
@@ -23,15 +23,34 @@ angular.module('simonSaysApp', [])
 
 	})
 
-	.controller('control', function($timeout, $interval, $log, simonsTurn, colors){
+	.controller('control', function($timeout, $interval, $log, simonsTurn, allOptions, colors){
 
 		var self = this;
-		var speed = 300;
 		self.isDisabled = true;
+
+
+// move values into this object slowly
+		self.gameOptions = {
+			colorOptions: [
+				{ color: 'yellow' }, 
+				{ color: 'green' }, 
+				{ color: 'blue' }, 
+				{ color: 'red' }
+			],
+			simonMoves: [],
+			yourMoves: [],
+			displaySimon: [],
+			displayHuman: []
+
+		}
+// end object
 
 		self.colorOptions = ['yellow', 'green', 'blue', 'red'];
 		self.simonMoves = [];
 		self.yourMoves = [];
+
+		self.displaySimon = [];
+		self.displayHuman = [];
 
 
 		//for clicks
@@ -50,9 +69,10 @@ angular.module('simonSaysApp', [])
 		self.yourTurn = function(colorSelect) {
 
 			//run animation function on usr click
-			self.selectSquare(colorSelect);
+			self.clickedColor = colorSelect;
+			self.selectSquare(self.clickedColor);
 
-			self.yourMoves.push({move: colorSelect});
+			self.yourMoves.push({move: self.clickedColor});
 
 			if ( self.yourMoves[i].move === self.simonMoves[i].move ) {
 
@@ -77,7 +97,6 @@ angular.module('simonSaysApp', [])
 				console.log('Play Again?');
 			}
 
-			
 		}
 
 
@@ -85,25 +104,20 @@ angular.module('simonSaysApp', [])
 
 			self.isDisabled = true; //shows button
 			self.startBtn = true; //hides btn
-			//get random color
+
 			self.random = self.colorOptions[Math.floor(Math.random() * self.colorOptions.length)];
-			//Log the color
+
 			$log.info('Simon selected: ' + self.random);
 			
-			//Push Color to the Simon Array
 			self.simonMoves.push({move: self.random});
 
 			self.len = self.simonMoves.length;
 
-			//$log.info('Length of array: ' + self.len);
-
-			
-			var x = 0;
+			var x = 0; // Resets Every time simaon takes a turn
 
 			$interval(function(){
 
-				//console.log(self.simonMoves[x]);
-
+				// Runs through simons choices
 				if (self.simonMoves[x].move == 'yellow') {
 
 					self.selectSquare(self.colors.yellow);
@@ -126,7 +140,6 @@ angular.module('simonSaysApp', [])
 
 				if (x === self.len - 1) {
 
-					// Enable Buttons after 1/2 sec
 					$timeout(function(){
 					  self.isDisabled = false;
 				    },1);
@@ -165,7 +178,7 @@ angular.module('simonSaysApp', [])
 					self.red = false;
 					self.blue = false;
 					self.green = false;
-				}, speed);
+				}, 200);
 		}
 		
 	}); //close ctrl
