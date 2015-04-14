@@ -25,7 +25,7 @@
 
 		<div class="square red dim" ng-class="{'lit' : ctrl.red }" ng-click="ctrl.yourTurn(ctrl.colors.red)"></div>
 
-		<div style="height: 100%; width:100%; position: absolute; top:0; left: 0;" ng-show="ctrl.isDisabled">Disabled</div>
+		<div style="height: 100%; width:100%; position: absolute; top:0; left: 0;" ng-show="ctrl.isDisabled">Simons Turn</div>
 
 
 
@@ -37,7 +37,7 @@
 
 		<p>List moves here</p>
 
-		<button ng-click="ctrl.simonsTurn()">Generate Random Color</button>
+		<button ng-hide="ctrl.startBtn" ng-click="ctrl.simonsTurn()">Start Game</button>
 
 	</div>
 
@@ -47,6 +47,12 @@
 		<p>Compare Moves</p>
 
 	</div>
+
+<h1>Choices</h1>
+<div ng-repeat="Smove in ctrl.simonMoves.move">
+<p>{{ ctrl.Smove }}</p>
+
+</div>
 
 
 </div><!-- close ctrl -->

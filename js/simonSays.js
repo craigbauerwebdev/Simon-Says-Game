@@ -19,14 +19,14 @@ angular.module('simonSaysApp', [])
 
 	})
 
-	.value('val', function(){
+	.value('colors', function(){
 
 	})
 
-	.controller('control', function($timeout, $interval, $log, simonsTurn){
+	.controller('control', function($timeout, $interval, $log, simonsTurn, colors){
 
 		var self = this;
-		var speed = 100;
+		var speed = 300;
 		self.isDisabled = true;
 
 		self.colorOptions = ['yellow', 'green', 'blue', 'red'];
@@ -42,7 +42,8 @@ angular.module('simonSaysApp', [])
 			red: 'red'
 		}
 
-		//self.simonsTurn();
+
+
 
 		var i = 0;
 
@@ -51,61 +52,57 @@ angular.module('simonSaysApp', [])
 			//run animation function on usr click
 			self.selectSquare(colorSelect);
 
-			//push selection to yourMoves
-			self.yourMoves.push({move: self.colorSelect});
+			self.yourMoves.push({move: colorSelect});
 
+			if ( self.yourMoves[i].move === self.simonMoves[i].move ) {
 
-			if ( colorSelect === self.simonMoves[i].move ) {
-
+				//$log.log('selection matched');
 				i++;
-				console.log('Turn: ' + i);
 
-				$log.info('Length of Simon Array: ' + self.simonMoves.length);
-				$log.info('Length of Human Array: ' + self.yourMoves.length);
-				$log.info('i: ' + i);
-
-				self.yourMoves = [];
-
-				self.simonsTurn(); //move this
+				if ( self.yourMoves.length === self.simonMoves.length) {
+					
+					//$log.log('New Round');	
+					self.yourMoves = [];
+					self.simonsTurn();
+					i = 0;
+				}	
 
 			} else {
 
-				//return;
-				console.log('Not Equal???');
+				i = 0;
+				self.yourMoves = [];
+				self.simonMoves = [];
+				self.isDisabled = true;
+				self.startBtn = false; //shows play again btn
+				console.log('Play Again?');
 			}
 
-
-			$log.info(self.yourMoves);
-
-			//compare index of arrays
-
-			//end if array is over
-
-			/*$timeout(function(){
-				self.isDisabled = false;
-			}, 5000)*/
 			
 		}
 
+
 		self.simonsTurn = function(){
-			self.isDisabled = true;
+
+			self.isDisabled = true; //shows button
+			self.startBtn = true; //hides btn
 			//get random color
 			self.random = self.colorOptions[Math.floor(Math.random() * self.colorOptions.length)];
 			//Log the color
 			$log.info('Simon selected: ' + self.random);
+			
 			//Push Color to the Simon Array
 			self.simonMoves.push({move: self.random});
 
 			self.len = self.simonMoves.length;
 
-			$log.info('Length of array: ' + self.len);
+			//$log.info('Length of array: ' + self.len);
 
 			
 			var x = 0;
 
 			$interval(function(){
 
-				console.log(self.simonMoves[x]);
+				//console.log(self.simonMoves[x]);
 
 				if (self.simonMoves[x].move == 'yellow') {
 
@@ -127,26 +124,22 @@ angular.module('simonSaysApp', [])
 					$log.log('Simon Fucked Up!')
 				}
 
-				//log
-				console.log('x: ' + x);
-				console.log('Len: ' + self.len)
-
 				if (x === self.len - 1) {
 
-					// Enable Buttons after 1 sec
+					// Enable Buttons after 1/2 sec
 					$timeout(function(){
 					  self.isDisabled = false;
-				    },1000);
-
-					//self.yourTurn();
-
+				    },1);
 					
 				}
 				x++;
-			}, 1000, self.len);
+			}, 800, self.len);
 
-			//console.log('Your Turn');
 		}
+
+
+
+
 
 		//animation for color selection
 		self.selectSquare = function(color) {
