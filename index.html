@@ -5,6 +5,8 @@
 
 	<link rel="stylesheet" type="text/css" href="css/simonSays.css" />
 
+	<link href='http://fonts.googleapis.com/css?family=Sigmar+One' rel='stylesheet' type='text/css'>
+
 	<!--<script src="https://code.angularjs.org/1.3.9/angular.min.js"></script>-->
 	 <script src="js/angular.min.1.3.9.js"></script>
 
@@ -13,8 +15,12 @@
 
 <div ng-controller="control as ctrl">
 
-	<h1>Simon Says</h1>
-	<div class="wrap" style="position: relative;">
+	<h1 style="font-weight: 400; font-size: 3em; margin-bottom: 0;">SIMON</h1>
+	<div class="wrap">
+
+	    <div class="start">
+			<button ng-hide="ctrl.startBtn" ng-click="ctrl.simonsTurn()">Start Game</button>
+		</div>
 
 		<!-- Clickable Version -->
 		<div class="square yellow dim" ng-class="{'lit' : ctrl.yellow }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.yellow)"></div>
@@ -25,32 +31,35 @@
 
 		<div class="square red dim" ng-class="{'lit' : ctrl.red }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.red)"></div>
 
-		<div style="height: 100%; width:100%; position: absolute; top:0; left: 0;" ng-show="ctrl.isDisabled">Simons Turn</div>
+		<!-- Instructions -->
 
+		<div ng-show="ctrl.gameOptions.simonsTurn" class="simonsTurn abso center">
+			
+			<h2>Simon's Turn</h2>
 
+		</div>
 
-	</div>
+		<div ng-show="ctrl.gameOptions.yourTurn" class="yourTurn abso center">
+			
+			<h2>Your Turn</h2>
+			<p>{{ctrl.len}} turn<span ng-hide="ctrl.hideS">s</span> left
+			</p>
 
-	<button ng-hide="ctrl.startBtn" ng-click="ctrl.simonsTurn()">Start Game</button>
-
-	<div ng-show="ctrl.gameOptions.simonsTurn" class="simonsTurn">
+		</div>
 		
-		<h1>Simon's Turn</h1>
 
-		<p>List moves here</p>
+		<!-- Disable div -->
+		<div style="height: 100%; width:100%; position: absolute; top:0; left: 0;" ng-show="ctrl.isDisabled"></div>
 
-	</div>
+	</div> <!-- Close Wrap -->
 
-	<div ng-show="ctrl.gameOptions.yourTurn" class="yourTurn">
+	<div ng-repeat="display in ctrl.gameOptions.displayMoves">
 		
-		<h1>Your Turn</h1>
-		<p>Compare Moves</p>
+		Move {{$index + 1}}<br />
+		Simon: {{display.simon}} 
+		You: {{display.you}}
 
 	</div>
-
-<!-- <h1>Choices</h1>
-<div ng-repeat="sM in ctrl.simonMoves.move">
-<p>{{ ctrl.sM }}</p> -->
 
 </div>
 

@@ -1,13 +1,19 @@
 body {
 		font-family: Arial;
+		text-align: center;
+		background: #333;
+		color: #fff;
+		background: url(../img/bkg.jpg) no-repeat top center;
 	}
 	/* Layout */
+	h1 {
+		font-family: 'Sigmar One', cursive;
+	}
 	.wrap {
+		position: relative;
 		width: 400px;
 		height: 400px;
-		float: left;
-		margin-right: 30px;
-		background: url(../img/console.png);
+		margin: 0 auto;
 	}
 	.square {
 		width: 50%;
@@ -21,6 +27,26 @@ body {
 	.lit {
 		opacity: 1;
 	}
+	/* OOCSS */
+	.rel {
+		position: relative;
+	}
+	.abso {
+		position: absolute;
+	}
+	.center {
+		text-align: center;
+	}
+	.simonsTurn, .yourTurn {
+		width: 97%;
+		left: 3%;
+	}
+	.simonsTurn {
+		top: 163px;
+	}
+	.yourTurn {
+		top: 150px;
+	}
 
 	.yellow {
 	 	background: url(../img/yellow.png);
@@ -33,4 +59,18 @@ body {
 	}
 	.red {
 	 	background: url(../img/red.png);
+	}
+	.start {
+		position: absolute;
+		top: 177px;
+		left: 3%;
+		width: 96%;
+		z-index: 999
+	}
+	button {
+		padding: 10px;
+		background: rgba(0,0,0,.5);
+		color: #fff;
+		border: 0;
+		font-size: 1.5em;
 	}

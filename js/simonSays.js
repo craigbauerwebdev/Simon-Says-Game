@@ -36,14 +36,13 @@ angular.module('simonSaysApp', [])
 				green: 'green', 
 				blue: 'blue', 
 				red: 'red',
-				random: ['yellow', 'green', 'blue', 'red']
 				},
+			random: ['yellow', 'green', 'blue', 'red'],
 			simonsTurn: false,
 			yourTurn: false,
 			simonMoves: [],
 			yourMoves: [],
-			displaySimon: [],
-			displayHuman: []
+			displayMoves: [],
 
 		}
 // end object
@@ -54,22 +53,40 @@ angular.module('simonSaysApp', [])
 
 		self.yourTurn = function(colorSelect) {
 
+			
 			//run animation function on usr click
 			self.clickedColor = colorSelect;
 			self.selectSquare(self.clickedColor);
 
 			self.gameOptions.yourMoves.push({move: self.clickedColor});
 
+			self.len--;
+
+
 			if ( self.gameOptions.yourMoves[i].move === self.gameOptions.simonMoves[i].move ) {
 
 				//$log.log('selection matched');
 				i++;
 
+
+
+				self.gameOptions.displayMoves.push({simon: self.clickedColor, you: self.clickedColor});
+
+
+
+
 				if ( self.gameOptions.yourMoves.length === self.gameOptions.simonMoves.length) {
 					
 					//$log.log('New Round');	
 					self.gameOptions.yourMoves = [];
-					self.simonsTurn();
+
+					self.isDisabled = true;
+
+					$timeout(function(){
+						self.gameOptions.displayMoves = [];
+						self.simonsTurn();
+					}, 1500);
+
 					i = 0;
 				}	
 
@@ -78,6 +95,7 @@ angular.module('simonSaysApp', [])
 				i = 0;
 				self.gameOptions.yourMoves = [];
 				self.gameOptions.simonMoves = [];
+				self.gameOptions.displayMoves = [];
 				self.gameOptions.yourTurn = false;
 				self.gameOptions.simonsTurn = false;
 				self.isDisabled = true;
@@ -98,7 +116,7 @@ angular.module('simonSaysApp', [])
 			self.isDisabled = true; //shows button
 			self.startBtn = true; //hides btn
 
-			self.random = self.colorOptions[Math.floor(Math.random() * self.colorOptions.length)];
+			self.random = self.gameOptions.random[Math.floor(Math.random() * self.gameOptions.random.length)];
 
 			$log.info('Simon selected: ' + self.random);
 			
@@ -143,14 +161,12 @@ angular.module('simonSaysApp', [])
 					}, 1000);
 					
 				}
+
 				x++;
+
 			}, 800, self.len);
 
 		}
-
-
-
-
 
 		//animation for color selection
 		self.selectSquare = function(color) {
