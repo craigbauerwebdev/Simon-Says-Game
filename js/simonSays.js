@@ -62,19 +62,19 @@ angular.module('simonSaysApp', [])
 
 			self.len--;
 
+			self.yourMove = self.gameOptions.yourMoves[i].move;
+			self.simonsMove = self.gameOptions.simonMoves[i].move;
 
-			if ( self.gameOptions.yourMoves[i].move === self.gameOptions.simonMoves[i].move ) {
+			$log.log(self.yourMove);
+			$log.log(self.simonsMove);
 
-				//$log.log('selection matched');
+			if ( self.yourMove === self.simonsMove ) {
+
 				i++;
 
+				self.gameOptions.displayMoves.push({simon: self.yourMove, you: self.simonsMove});
 
-
-				self.gameOptions.displayMoves.push({simon: self.clickedColor, you: self.clickedColor});
-
-
-
-
+				// if your selections 
 				if ( self.gameOptions.yourMoves.length === self.gameOptions.simonMoves.length) {
 					
 					//$log.log('New Round');	
