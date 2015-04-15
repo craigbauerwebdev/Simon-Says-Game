@@ -65,9 +65,6 @@ angular.module('simonSaysApp', [])
 			self.yourMove = self.gameOptions.yourMoves[i].move;
 			self.simonsMove = self.gameOptions.simonMoves[i].move;
 
-			$log.log(self.yourMove);
-			$log.log(self.simonsMove);
-
 			if ( self.yourMove === self.simonsMove ) {
 
 				i++;
