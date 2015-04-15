@@ -1,17 +1,31 @@
 angular.module('simonSaysApp', [])
 
 
-	.factory('simonsTurn', function(){
+	.factory('gameOptionsDTO', function(){
 
-		function simonsTurn() {
+		function gameOptionsDTO() {
 
 		}
 
-		simonsTurn.prototype.hisTurn = function(service) {
-			// body...
+		gameOptionsDTO.prototype.dataObject = function() {
+			this.gameOptions = {
+				colorOptions: {
+					yellow: 'yellow', 
+					green: 'green', 
+					blue: 'blue', 
+					red: 'red',
+					},
+				random: ['yellow', 'green', 'blue', 'red'],
+				simonsTurn: false,
+				yourTurn: false,
+				simonMoves: [],
+				yourMoves: [],
+				displayMoves: [],
+
+			}
 		};
 			
-			return simonsTurn;
+			return gameOptionsDTO;
 		})
 
 
@@ -23,9 +37,12 @@ angular.module('simonSaysApp', [])
 
 	})
 
-	.controller('control', function($timeout, $interval, $log, simonsTurn, allOptions, colors){
+	.controller('control', function($timeout, $interval, $log, gameOptionsDTO, allOptions, colors){
 
 		var self = this;
+
+		//self.go = new gameOptionsDTO;
+
 		self.isDisabled = true;
 
 
