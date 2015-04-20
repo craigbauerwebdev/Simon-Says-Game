@@ -15,6 +15,8 @@
 
 <div ng-controller="control as ctrl">
 
+	{{ ctrl.gO.colorOptions.yellow }}
+
 	<h1 style="font-weight: 400; font-size: 3em; margin-bottom: 0;">SIMON</h1>
 	<div class="wrap">
 
@@ -22,24 +24,26 @@
 			<button ng-hide="ctrl.startBtn" ng-click="ctrl.simonsTurn()">Start Game</button>
 		</div>
 
+		<p ng-show="ctrl.gameOver">Game Over</p>
+
 		<!-- Clickable Version -->
-		<div class="square yellow dim" ng-class="{'lit' : ctrl.yellow }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.yellow)"></div>
+		<div class="square yellow dim" ng-class="{'lit' : ctrl.yellow }" ng-click="ctrl.yourTurn(ctrl.gO.colorOptions.yellow)"></div>
 
-		<div class="square green dim" ng-class="{'lit' : ctrl.green }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.green)"></div>
+		<div class="square green dim" ng-class="{'lit' : ctrl.green }" ng-click="ctrl.yourTurn(ctrl.gO.colorOptions.green)"></div>
 
-		<div class="square blue dim" ng-class="{'lit' : ctrl.blue }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.blue)"></div>
+		<div class="square blue dim" ng-class="{'lit' : ctrl.blue }" ng-click="ctrl.yourTurn(ctrl.gO.colorOptions.blue)"></div>
 
-		<div class="square red dim" ng-class="{'lit' : ctrl.red }" ng-click="ctrl.yourTurn(ctrl.gameOptions.colorOptions.red)"></div>
+		<div class="square red dim" ng-class="{'lit' : ctrl.red }" ng-click="ctrl.yourTurn(ctrl.gO.colorOptions.red)"></div>
 
 		<!-- Instructions -->
 
-		<div ng-show="ctrl.gameOptions.simonsTurn" class="simonsTurn abso center">
+		<div ng-show="ctrl.gO.simonsTurn" class="simonsTurn abso center">
 			
 			<h2>Simon's Turn</h2>
 
 		</div>
 
-		<div ng-show="ctrl.gameOptions.yourTurn" class="yourTurn abso center">
+		<div ng-show="ctrl.gO.yourTurn" class="yourTurn abso center">
 			
 			<h2>Your Turn</h2>
 			<p>{{ctrl.len}} turn<span ng-hide="ctrl.hideS">s</span> left
@@ -53,10 +57,10 @@
 
 	</div> <!-- Close Wrap -->
 
-	<div ng-repeat="display in ctrl.gameOptions.displayMoves">
+	<div class="left" ng-repeat="display in ctrl.gO.displayMoves">
 		
-		Move {{$index + 1}}<br />
-		Simon: {{display.simon}} 
+		<h3>Move {{$index + 1}}</h3>
+		Simon: {{display.simon}}<br />
 		You: {{display.you}}
 
 	</div>

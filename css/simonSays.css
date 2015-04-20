@@ -9,6 +9,10 @@ body {
 	h1 {
 		font-family: 'Sigmar One', cursive;
 	}
+	h3 {
+		margin: 0;
+		text-decoration: underline;
+	}
 	.wrap {
 		position: relative;
 		width: 400px;
@@ -31,12 +35,17 @@ body {
 	.rel {
 		position: relative;
 	}
+	.left {
+		display: inline-block;
+		padding: 15px;
+	}
 	.abso {
 		position: absolute;
 	}
 	.center {
 		text-align: center;
 	}
+	
 	.simonsTurn, .yourTurn {
 		width: 97%;
 		left: 3%;
